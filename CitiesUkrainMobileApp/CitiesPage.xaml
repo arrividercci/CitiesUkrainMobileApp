@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CitiesUkrainMobileApp.CitiesPage">
+
+    <ScrollView>
+        <StackLayout Padding="10">
+            <VerticalStackLayout Spacing="20" Padding="30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Button Text="Сортувати за назвою" Clicked="OnSortByNameClicked" />
+                <Button Text="Міста з населенням>500 тис. та які ближче 500км від Києва" Clicked="OnSelectByDistanceAndPopulationClicked" />
+                <Button Text="Міста з максимальною та мінімальною відстанню до Києва" Clicked="OnSelectMaxAndMinDistanceClicked" />
+            </VerticalStackLayout>
+
+            <CollectionView x:Name="CitiesCollectionView" ItemTemplate="{Binding Cities}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#ddd" Padding="10" Margin="10" BackgroundColor="White" CornerRadius="8" HasShadow="True">
+                            <StackLayout Orientation="Horizontal" Spacing="10">
+                                <!-- Ліва частина: інфо про місто -->
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding Name}" 
+                                           FontSize="20" 
+                                           FontAttributes="Bold"
+                                           TextColor="#2c3e50" />
+                                    <Label Text="{Binding Population, StringFormat='Популяція: {0}'}" 
+                                           FontSize="16" 
+                                           TextColor="#7f8c8d"/>
+                                    <Label Text="{Binding DistanceToKyiv, StringFormat='Відстань до Києва: {0} км'}"
+                                           FontSize="16" 
+                                           TextColor="#7f8c8d"/>
+                                </StackLayout>
+
+                                <!-- Права частина: кнопка "Прокласти маршрут" -->
+                                <Button Text="Прокласти маршрут" Clicked="OnNavigateToRoute" CommandParameter="{Binding .}"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
